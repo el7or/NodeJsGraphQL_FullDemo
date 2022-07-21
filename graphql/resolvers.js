@@ -209,6 +209,11 @@ module.exports = {
       error.code = 401;
       throw error;
     }
+    if (!req.isAdmin) {
+      const error = new Error('Not authorized!');
+      error.code = 403;
+      throw error;
+    }
     const role = await Role.findById(id);
     if (!role) {
       const error = new Error('No role found!');
